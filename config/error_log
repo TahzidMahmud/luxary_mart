@@ -1,0 +1,152 @@
+[11-Jul-2025 09:48:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[11-Jul-2025 09:49:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/app.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/app.php on line 19
+[11-Jul-2025 09:49:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/cache.php on line 18
+[15-Jul-2025 08:27:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[15-Jul-2025 08:27:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/services.php on line 18
+[17-Jul-2025 06:34:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[17-Jul-2025 06:34:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/app.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/app.php on line 19
+[17-Jul-2025 06:34:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/cache.php on line 18
+[18-Jul-2025 03:49:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[23-Jul-2025 14:41:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 12:09:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 12:10:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/app.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/app.php on line 19
+[21-Aug-2025 12:20:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 12:20:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 12:20:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/app.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/app.php on line 19
+[21-Aug-2025 12:21:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/ask-database.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/ask-database.php on line 9
+[21-Aug-2025 13:24:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 13:25:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/app.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/app.php on line 19
+[21-Aug-2025 13:26:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/ask-database.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/ask-database.php on line 9
+[21-Aug-2025 13:26:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/broadcasting.php on line 18
+[21-Aug-2025 13:26:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/cache.php on line 18
+[21-Aug-2025 13:27:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/coinbase.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/coinbase.php on line 4
+[21-Aug-2025 13:27:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/database.php on line 18
+[21-Aug-2025 13:27:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/debugbar.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/debugbar.php on line 17
+[21-Aug-2025 13:28:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/filesystems.php on line 16
+[21-Aug-2025 13:28:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/flutterwave.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/flutterwave.php on line 18
+[21-Aug-2025 13:28:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/hashing.php on line 32
+[21-Aug-2025 13:28:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function base_path() in /home/luxuryon/public_html/config/ide-helper.php:125
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/ide-helper.php on line 125
+[21-Aug-2025 13:29:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/logging.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/logging.php on line 21
+[21-Aug-2025 13:29:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/mail.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/mail.php on line 16
+[21-Aug-2025 13:29:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/openai.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/openai.php on line 15
+[21-Aug-2025 13:30:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function base_path() in /home/luxuryon/public_html/config/pdf.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/pdf.php on line 11
+[21-Aug-2025 13:30:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/queue.php on line 16
+[21-Aug-2025 13:31:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/sanctum.php on line 18
+[21-Aug-2025 13:31:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/services.php on line 18
+[21-Aug-2025 13:31:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/session.php on line 21
+[21-Aug-2025 13:32:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/luxuryon/public_html/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/view.php on line 17
+[21-Aug-2025 13:32:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/luxuryon/public_html/config/websockets.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/luxuryon/public_html/config/websockets.php on line 11
