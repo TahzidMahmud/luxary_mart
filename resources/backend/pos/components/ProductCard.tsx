@@ -96,15 +96,15 @@ const ProductCard = ({ posCartGroup, posProduct, onSuccess }: Props) => {
 
                 <Image
                     className="aspect-square"
-                    src={posProduct.product.thumbnailImg}
+                    src={posProduct.image}
                     alt="Product Image"
                 />
 
                 <div className="grow px-3 sm:px-5 py-3 flex flex-col">
                     <h3 className="grow font-public-sans mt-1 sm:mt-2 mb-1 line-clamp-2">
                         {posProduct.product.name}
-                    </h3> 
-                    
+                    </h3>
+
                     <div className="flex gap-1 flex-wrap items-start pb-2">
                         {posProduct.combinations.map((combination) => (
                             <span
@@ -114,14 +114,14 @@ const ProductCard = ({ posCartGroup, posProduct, onSuccess }: Props) => {
                                 {combination.name}
                             </span>
                         ))}
-                    </div> 
+                    </div>
 
                     <p className="text-theme-secondary text-sm sm:text-[15px] font-bold flex gap-1 items-center">
                         {currencyFormatter(posProduct.discountedBasePrice)}
                     </p>
 
                     <p className="text-[12px] mt-1 flex gap-1 items-center">
-                         SKU: {posProduct.sku} 
+                         SKU: {posProduct.sku}
                     </p>
                     <p
                         className={cn(
