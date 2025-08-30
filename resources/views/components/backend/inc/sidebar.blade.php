@@ -28,7 +28,7 @@
         {{-- @can('view_orders') --}}
         {{-- Orders --}}
         <li class="sidebar__li {{ areActiveRoutes(['admin.pos']) }}">
-            <a href="{{ route('admin.pos') }}" class="sidebar__item">
+            <a href="{{ route('admin.pos',['warehouseId'=>'1']) }}" class="sidebar__item">
                 <span class="sidebar__item--icon">
                     <i class="fa-solid fa-bell-concierge"></i>
                 </span>
@@ -659,6 +659,7 @@
                     'admin.payment-method.update',
                     'admin.social-login.index',
                     'admin.languages.*',
+                    'admin.delivery-partner.index',
                 ];
             @endphp
             <li class="sidebar__li has-submenu {{ areActiveRoutes($configActiveRoutes, 'active expanded') }}">
@@ -713,6 +714,13 @@
                         <li class="{{ areActiveRoutes(['admin.social-login.index']) }}">
                             <a href="{{ route('admin.social-login.index') }}" class="py-3 w-full transition-all">
                                 <span class="sub-item--text">{{ translate('Social Media Login') }}</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payment_methods')
+                        <li class="{{ areActiveRoutes(['admin.delivery-partner.index']) }}">
+                            <a href="{{ route('admin.delivery-partner.index') }}" class="py-3 w-full transition-all">
+                                <span class="sub-item--text">{{ translate('Delivery Partner Settings') }}</span>
                             </a>
                         </li>
                     @endcan

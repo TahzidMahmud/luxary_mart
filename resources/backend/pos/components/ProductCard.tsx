@@ -11,6 +11,7 @@ import { objectToFormData } from '../../react/utils/ObjectFormData';
 import { cn } from '../../react/utils/cn';
 import { IPosCartGroup, IPosProductVariation } from '../types';
 import { addToPosCartGroup, updatePosCartItem } from '../utils/actions';
+import ProductPicturesModal from "../popup/ProductPicturesModal";
 
 interface Props {
     posCartGroup?: IPosCartGroup;
@@ -140,13 +141,15 @@ const ProductCard = ({ posCartGroup, posProduct, onSuccess }: Props) => {
                 </div>
             </div>
 
-            <a
+            {/* <a
                 href={`/admin/products/real-pictures/${posProduct.product.id}`}
                 target="_blank"
                 className="py-2 flex items-center justify-center gap-2 border-t border-border hover:text-white hover:bg-theme-primary"
             >
                 Real Picture
-            </a>
+            </a> */}
+            <ProductPicturesModal product={posProduct} />
+
         </div>
     );
 };

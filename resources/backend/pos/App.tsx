@@ -51,7 +51,7 @@ const App = () => {
     });
     const [filters, setFilters] = useState<IFilters>({
         page: 1,
-        warehouseId: '',
+        warehouseId: 1,
         brandId: '',
         categoryId: '',
         searchKey: '',
@@ -214,7 +214,7 @@ const App = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-5">
                 <div className="card xl:col-span-3">
                     <div className="card__content">
-                        <div className="max-w-[200px] mb-3">
+                        {/* <div className="max-w-[200px] mb-3">
                             <SelectInput
                                 name="warehouseId"
                                 placeholder={translate('Warehouse')}
@@ -233,7 +233,7 @@ const App = () => {
                                 }}
                                 groupClassName="grow"
                             />
-                        </div>
+                        </div> */}
 
                         <div className="flex max-sm:flex-col gap-3 sm:gap-5">
                             <SearchForm
@@ -406,11 +406,11 @@ const App = () => {
                                         >
                                             <td>
                                                 <div className="flex items-center gap-2">
-                                                    
+
                                                 <Image
                                                     className="h-[60px]"
                                                     src={posCart.product?.thumbnailImg}
-                                                    alt="Product Image" 
+                                                    alt="Product Image"
                                                 />
 
                                                 <div>
@@ -437,7 +437,7 @@ const App = () => {
                                                 </div>
 
                                                 </div>
-                                               
+
                                             </td>
                                             <td>
                                                 <Counter

@@ -135,7 +135,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     | customers routes
     |----------------------------------------------------------------------------------------------------------------------
     */
-    # customers 
+    # customers
     Route::resource('/customers', CustomerController::class, ['names' => 'admin.customers']);
     Route::post('/customers/toggle-ban', [CustomerController::class, 'toggleBan'])->name('admin.customers.toggleBan');
 
@@ -144,7 +144,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     | moderator routes
     |----------------------------------------------------------------------------------------------------------------------
     */
-    # moderators 
+    # moderators
     Route::resource('/moderators', ModeratorController::class, ['names' => 'admin.moderators']);
     Route::get('/moderator-payouts', [ModeratorController::class, 'payouts'])->name('admin.moderators.payouts');
     Route::post('/moderator-payouts', [ModeratorController::class, 'storePayouts'])->name('admin.moderators.storePayouts');
@@ -161,7 +161,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     Route::post('/sellers/payout-requests', [SellerController::class, 'makePayment'])->name('admin.sellers.makePayment');
     Route::get('/sellers/earnings', [SellerController::class, 'earnings'])->name('admin.sellers.earnings');
 
-    # sellers 
+    # sellers
     Route::resource('/sellers', SellerController::class, ['names' => 'admin.sellers']);
     Route::post('/sellers/toggle-ban', [SellerController::class, 'toggleBan'])->name('admin.sellers.toggleBan');
     Route::post('/sellers/toggle-approval', [SellerController::class, 'toggleApproval'])->name('admin.sellers.toggleApproval');
@@ -173,7 +173,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     | product routes
     |----------------------------------------------------------------------------------------------------------------------
     */
-    # products 
+    # products
     Route::resource('/products', ProductController::class, ['names' => 'admin.products']);
     Route::post('/products/update/{id}', [ProductController::class, 'update'])->name('admin.products.update');
     Route::get('/products/duplicate/{id}', [ProductController::class, 'duplicate'])->name('admin.products.duplicate');
@@ -344,7 +344,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     | website setup routes
     |----------------------------------------------------------------------------------------------------------------------
     */
-    # pages routes 
+    # pages routes
     Route::get('/color-and-branding', [ColorBrandingController::class, 'colorBranding'])->name('admin.colorBranding.index');
     Route::resource('/pages', PageController::class, ['names' => 'admin.pages']);
     Route::get('/pages/configure/{id}', [PageController::class, 'configure'])->name('admin.homepage.configure');
@@ -390,5 +390,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
         # payment method settings
         Route::get('/payment-method', [SettingController::class, 'payment_method'])->name('admin.payment-method.index');
         Route::post('/payment_method_update', [SettingController::class, 'payment_method_update'])->name('admin.payment-method.update');
+
+
+        #delivery partner setings
+        Route::get('/delivery-partner-settings', [SettingController::class, 'delivery_partner_settings'])->name('admin.delivery-partner.index');
+
     });
 });

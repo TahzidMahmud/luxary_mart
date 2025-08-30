@@ -194,4 +194,7 @@ class SettingController extends Controller
     {
         return view('backend.admin.configurations.social.social');
     }
+        public function delivery_partner_settings(){
+        return view('backend.admin.configurations.delivery-partner.index');
+    }
 }
