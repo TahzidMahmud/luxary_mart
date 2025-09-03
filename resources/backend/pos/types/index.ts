@@ -59,11 +59,7 @@ export interface IPosProductVariation {
     tax: number;
 }
 
-export interface ICustomer {
-    id: number;
-    name: string;
-    phone: string;
-}
+
 export interface ICountry {
     id: number;
     code: string;
@@ -154,4 +150,10 @@ export interface IAddress {
     direction: string;
     postalCode: string;
     isDefault: number;
+}
+export interface ICustomer {
+    id: number;
+    name: string;
+    phone: string;
+    addresses:IAddress[];
 }

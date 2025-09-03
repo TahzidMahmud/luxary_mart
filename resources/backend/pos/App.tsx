@@ -36,6 +36,7 @@ import {
     holdOrder,
     updatePosCartItem,
 } from './utils/actions';
+import CustomerDetailsModal from './popup/CustomerDetailsModal';
 
 const App = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -63,12 +64,13 @@ const App = () => {
     const [customer, setCustomer] = useState<ICustomer>();
     const [address, setAddress] = useState<IAddress | null>(null);
     const [posCartGroup, setPosCartGroup] = useState<IPosCartGroup>();
-
+    const [openAddCustomerModal, setOpenAddCustomerModal]=useState(false);
+    const [showCustomerDetailsModal, setShowCustomerDetailsModal] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(null);
     useEffect(() => {
         getPosFilterData().then((data) => setFilterData(data));
         getCustomerFilter().then((data) => setCustomerFilters(data));
     }, []);
-
     useEffect(() => {
         if (!filters.warehouseId) {
             return;
@@ -187,7 +189,7 @@ const App = () => {
             app.requestFullscreen();
         }
     };
-
+    const [newCustomerName, setNewCustomerName] = useState("");
     return (
         <>
             <div className="dashboard-nav pt-6 flex items-center justify-between mb-8">
@@ -348,6 +350,19 @@ const App = () => {
                                 onChange={(newValue) => {
                                     setCustomer(newValue);
                                 }}
+                                onBlur={() => {
+                                    // setOpenAddCustomerModal(true);
+                                }}
+                                onNoMatch={(inputValue) => {
+                                    setNewCustomerName(inputValue);
+                                    setOpenAddCustomerModal(true);
+                                }}
+                                onFullMatch={(matchedCustomer) => {
+                                    // if (!showCustomerDetailsModal) {
+                                    setSelectedCustomer(matchedCustomer);
+                                    setShowCustomerDetailsModal(true);
+                                    // }
+                                }}
                             />
 
                             <div className="flex gap-3">
@@ -359,12 +374,22 @@ const App = () => {
                                             ...(customerFilters || []),
                                         ]);
                                     }}
+                                    isActive={openAddCustomerModal}
+                                    onClose={()=>setOpenAddCustomerModal(false)}
                                 />
                                 <AddressModal
                                     selectedAddressId={address?.id}
                                     customerId={customer?.id}
                                     onSuccess={setAddress}
                                 />
+
+                                {/* {selectedCustomer && ( */}
+                                <CustomerDetailsModal
+                                    customer={selectedCustomer}
+                                    isActive={showCustomerDetailsModal}
+                                    onClose={() => setShowCustomerDetailsModal(false)}
+                                />
+                                {/* )} */}
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,8 @@ import ModalWrapper from './ModalWrapper';
 
 interface Props {
     onSuccess: (customer: ICustomer) => void;
+    isActive: boolean;
+    onClose: () => void;
 }
 
 interface FormValues {
@@ -26,7 +28,7 @@ interface FormValues {
     cityId: number | null;
     areaId: number | null;
     postalCode: string;
-    address: string;
+    address?: string;
 }
 
 const initialValues: FormValues = {
@@ -49,24 +51,23 @@ const validationSchema = object().shape({
     address: string(),
 });
 
-const AddCustomerModal = ({ onSuccess }: Props) => {
-    const [isActive, setIsActive] = useState(false);
+const AddCustomerModal = ({ onSuccess,isActive,onClose }: Props) => {
 
     const [states, setStates] = useState<IState[]>([]);
     const [cities, setCities] = useState<ICity[]>([]);
     const [areas, setAreas] = useState<IArea[]>([]);
 
     const handleClose = () => {
-        setIsActive(false);
+        // onClose()
+         onClose?.();
     };
-
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async (values, helpers) => {
             try {
                 const data = await addCustomer(objectToFormData(values));
-                setIsActive(false);
+                // setIsActive(false);
                 onSuccess(data.newCustomer);
                 helpers.resetForm();
             } catch (error) {
@@ -76,6 +77,9 @@ const AddCustomerModal = ({ onSuccess }: Props) => {
             }
         },
     });
+    // useEffect(()=>{
+    //     setIsActive(openModal);
+    // },[openModal]);
 
     useEffect(() => {
         (async () => {
@@ -114,7 +118,7 @@ const AddCustomerModal = ({ onSuccess }: Props) => {
             <Button
                 variant="primary"
                 className="h-[37px] whitespace-nowrap"
-                onClick={() => setIsActive(true)}
+                onClick={() => handleClose()}
             >
                 {translate('Add Customer')}
             </Button>

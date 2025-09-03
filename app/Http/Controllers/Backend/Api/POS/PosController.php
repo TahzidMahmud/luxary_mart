@@ -96,9 +96,9 @@ class PosController extends Controller
     public function customers(Request $request)
     {
         if (user()->user_type != "admin") {
-            $customers      = User::customers()->where('shop_id', shopId())->get(['id', 'name', 'phone']);
+            $customers      = User::with('addresses')->customers()->where('shop_id', shopId())->get(['id', 'name', 'phone']);
         } else {
-            $customers      = User::customers()->get(['id', 'name', 'phone']);
+            $customers      = User::with('addresses')->customers()->get(['id', 'name', 'phone']);
         }
         return response()->json([
             'success'   => true,
@@ -162,6 +162,8 @@ class PosController extends Controller
             ]
         ], 200);
     }
+
+
 
     # store address
     public function storeAddress(Request $request)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 import Select, { Props as SelectProps } from 'react-select';
 import { cn } from '../../utils/cn';
@@ -12,6 +12,8 @@ interface Props<T> extends SelectProps<T> {
     error?: string;
     touched?: boolean;
     statusColorClass?: string;
+    onNoMatch?: (inputValue: string) => void;
+    onFullMatch?: (matchedOption: T) => void;
 }
 
 const SelectInput = ({
@@ -26,7 +28,7 @@ const SelectInput = ({
     ...rest
 }: Props<any>) => {
     const hasError = error && touched;
-
+ const lastInputRef = useRef("");
     const selected = options.find((opt) => {
         if (rest.getOptionValue) {
             return rest.getOptionValue(opt) == rest.value;
@@ -45,6 +47,68 @@ const SelectInput = ({
                     value={selected || null}
                     options={rest.isLoading ? [] : options}
                     placeholder={placeholder || translate('Select here')}
+                    onInputChange={(inputValue,actionMeta) => {
+                        lastInputRef.current = inputValue;
+                       if (rest.onInputChange) {
+                        rest.onInputChange(inputValue, actionMeta);
+                        }
+                    }}
+                    onBlur={(e) => {
+                        if (rest.onBlur) rest.onBlur(e);
+                        const inputValue = lastInputRef.current.trim().toLowerCase();
+                        if (!inputValue) return;
+
+                        const exactMatch = options.find((opt) => {
+                        if (rest.getOptionLabel) {
+                            const label = rest.getOptionLabel(opt).toLowerCase(); // "name(phone)"
+                            const name = (opt.name || "").toLowerCase();
+                            const phone = (opt.phone || "").toLowerCase();
+
+                            return (
+                            label === inputValue ||     // full "name(phone)" match
+                            name === inputValue ||      // name-only match
+                            phone === inputValue        // phone-only match
+                            );
+                        }
+                        return false;
+                        });
+                        if (exactMatch) {
+                            rest.onFullMatch?.(exactMatch);
+                            return;
+                        }
+                        const hasMatch = options.some((opt) => {
+                        if (rest.getOptionLabel) {
+                            return rest
+                            .getOptionLabel(opt)
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase());
+                        }
+                        return false;
+                        });
+
+                        if (!hasMatch && inputValue.trim() !== "") {
+                        rest.onNoMatch?.(inputValue); // 👈 fire event to parent
+                        }
+                    }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                        const inputValue = (e.currentTarget as HTMLInputElement).value;
+                        const hasMatch = options.some((opt) => {
+                            if (rest.getOptionLabel) {
+                            return rest
+                                .getOptionLabel(opt)
+                                .toLowerCase()
+                                .includes(inputValue.toLowerCase());
+                            }
+                            return false;
+                        });
+
+                        if (!hasMatch && inputValue.trim() !== "") {
+                            e.preventDefault();
+                            rest.onNoMatch?.(inputValue); // 👈 fire event to parent
+                        }
+                        }
+                    }}
                     components={{
                         IndicatorSeparator: () => null,
                         DropdownIndicator: () => (
