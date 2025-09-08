@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\Admin\FileManagerController;
 use App\Http\Controllers\Backend\Admin\Inventory\PurchaseOrderController;
 use App\Http\Controllers\Backend\Admin\Inventory\PurchasePaymentController;
 use App\Http\Controllers\Backend\Admin\Inventory\StockAdjustmentController;
+use App\Http\Controllers\Backend\Admin\Inventory\StockReportController;
 use App\Http\Controllers\Backend\Admin\Inventory\StockTransferController;
 use App\Http\Controllers\Backend\Admin\Products\BadgeController;
 use App\Http\Controllers\Backend\Admin\Products\BrandController;
@@ -238,6 +239,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'unbanned',
     # stock adjustments
     Route::resource('/stocks/adjustment', StockAdjustmentController::class, ['names' => 'admin.stockAdjustments']);
     Route::post('/stocks/adjustment/get-products', [StockAdjustmentController::class, 'getProducts'])->name('admin.stockAdjustments.getProducts');
+    Route::get('/stocks/report',[StockReportController::class,'generateStockReport'])->name('admin.stocks.report');
 
     # stock transfer
     Route::resource('/stocks/transfer', StockTransferController::class, ['names' => 'admin.stockTransfers']);

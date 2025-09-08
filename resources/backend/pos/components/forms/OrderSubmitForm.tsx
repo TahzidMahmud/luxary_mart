@@ -232,7 +232,7 @@ const OrderSubmitForm = ({
                         {currencyFormatter(formik.values.payingAmount)}
                     </div>
 
-                    <div className="space-y-3 mt-4">
+                    <div className="space-y-3 mt-12">
                         <div className="flex gap-5">
                             <label className="min-w-[150px] py-2">
                                 {translate('Payment Method')}

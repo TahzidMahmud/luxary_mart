@@ -136,6 +136,7 @@
                         'admin.purchase-return.*',
                         'admin.stockAdjustments.*',
                         'admin.stockTransfers.*',
+                        'admin.stocks.report'
                     ];
                 @endphp
                 <li class="sidebar__li has-submenu {{ areActiveRoutes($inventoryActiveRoutes, 'active expanded') }}">
@@ -191,6 +192,11 @@
                                 </a>
                             </li>
                         @endcan
+                            <li class="{{ areActiveRoutes(['admin.stocks.report']) }}">
+                                <a href="{{ route('admin.stocks.report') }}" class="py-3 w-full transition-all">
+                                    <span class="sub-item--text">{{ translate('Report') }}</span>
+                                </a>
+                            </li>
                     </ul>
                 </li>
             @endif

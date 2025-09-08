@@ -37,6 +37,7 @@ import {
     updatePosCartItem,
 } from './utils/actions';
 import CustomerDetailsModal from './popup/CustomerDetailsModal';
+import  DrawerWithHandle  from './components/DrawerHandle';
 
 const App = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -190,6 +191,8 @@ const App = () => {
         }
     };
     const [newCustomerName, setNewCustomerName] = useState("");
+  const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+
     return (
         <>
             <div className="dashboard-nav pt-6 flex items-center justify-between mb-8">
@@ -316,7 +319,7 @@ const App = () => {
                         ) : null}
                     </div>
                 </div>
-                <div className="card xl:col-span-2">
+                <div className="card xl:col-span-2 hidden xl:block">
                     <div className="card__content border-none pb-6">
                         <p className="text-muted text-center pb-4">
                             {translate('Total Product')}
@@ -375,6 +378,7 @@ const App = () => {
                                         ]);
                                     }}
                                     isActive={openAddCustomerModal}
+                                    onOpen={()=>setOpenAddCustomerModal(true)}
                                     onClose={()=>setOpenAddCustomerModal(false)}
                                 />
                                 <AddressModal
@@ -521,6 +525,224 @@ const App = () => {
                         onSuccess={handleSubmitOrderSuccess}
                     />
                 </div>
+
+                {/* Mobile drawer */}
+                <div className="xl:hidden">
+                     <DrawerWithHandle
+                     isOpen={cartDrawerOpen}
+                    setIsOpen={setCartDrawerOpen}
+                    drawerWidth={400}      // tweak if you want wider/narrower
+                    handleWidth={30}       // how much is visible when closed (also handle size)
+                >
+                    <div className="card border-none pb-6">
+                        <div className="card__content border-none pb-6">
+                            <p className="text-muted text-center pb-4">
+                                {translate('Total Product')}
+                                <span className="text-foreground ml-3">
+                                    {paddedNumber(
+                                        posCartGroup?.posCarts.length || 0,
+                                    )}
+                                </span>
+                            </p>
+
+                            <div className="flex max-sm:flex-col justify-end gap-x-3 gap-y-2">
+                                <SelectInput
+                                    name="customer"
+                                    placeholder={translate('Customer')}
+                                    value={customer?.id}
+                                    options={[...(customerFilters || [])]}
+                                    getOptionLabel={(option) =>
+                                        option.name +
+                                        (option.phone != null
+                                            ? '(' + option.phone + ')'
+                                            : '')
+                                    }
+                                    getOptionValue={(option) => option.id}
+                                    groupClassName="grow"
+                                    classNames={{
+                                        control: () => 'min-w-[120px]',
+                                        option: () => 'line-clamp-1',
+                                        input: () =>
+                                            '!grid-cols-[0_minmax(min-content,1fr)]',
+                                    }}
+                                    onChange={(newValue) => {
+                                        setCustomer(newValue);
+                                    }}
+                                    onBlur={() => {
+                                        // setOpenAddCustomerModal(true);
+                                    }}
+                                    onNoMatch={(inputValue) => {
+                                        setNewCustomerName(inputValue);
+                                        setOpenAddCustomerModal(true);
+                                    }}
+                                    onFullMatch={(matchedCustomer) => {
+                                        // if (!showCustomerDetailsModal) {
+                                        setSelectedCustomer(matchedCustomer);
+                                        setShowCustomerDetailsModal(true);
+                                        // }
+                                    }}
+                                />
+
+                                <div className="flex gap-3">
+                                    <AddCustomerModal
+                                        onSuccess={(customer) => {
+                                            setCustomer(customer);
+                                            setCustomerFilters([
+                                                customer,
+                                                ...(customerFilters || []),
+                                            ]);
+                                        }}
+                                        isActive={openAddCustomerModal}
+                                        onOpen={()=>setOpenAddCustomerModal(true)}
+                                        onClose={()=>setOpenAddCustomerModal(false)}
+                                    />
+                                    <AddressModal
+                                        selectedAddressId={address?.id}
+                                        customerId={customer?.id}
+                                        onSuccess={setAddress}
+                                    />
+
+                                    {/* {selectedCustomer && ( */}
+                                    <CustomerDetailsModal
+                                        customer={selectedCustomer}
+                                        isActive={showCustomerDetailsModal}
+                                        onClose={() => setShowCustomerDetailsModal(false)}
+                                    />
+                                    {/* )} */}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="overflow-x-auto">
+                            <table className="theme-table">
+                                <thead className="theme-table__head">
+                                    <tr>
+                                        <th className="min-w-[180px]">
+                                            {translate('Product')}
+                                        </th>
+                                        <th className="min-w-[80px]">
+                                            {translate('Qty')}
+                                        </th>
+                                        <th className="min-w-[80px]">
+                                            {translate('Price')}
+                                        </th>
+                                        <th className="min-w-[80px]">
+                                            {translate('Sub Total')}
+                                        </th>
+                                        <th className="min-w-[50px]"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody className="theme-table__body">
+                                    {!posCartGroup?.posCarts.length ? (
+                                        <tr>
+                                            <td colSpan={5}>
+                                                <p className="text-center">
+                                                    No product selected yet
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        posCartGroup?.posCarts.map((posCart) => (
+                                            <tr
+                                                className="theme-table__row"
+                                                key={posCart.id}
+                                            >
+                                                <td>
+                                                    <div className="flex items-center gap-2">
+
+                                                    <Image
+                                                        className="h-[60px]"
+                                                        src={posCart.product?.thumbnailImg}
+                                                        alt="Product Image"
+                                                    />
+
+                                                    <div>
+                                                        <p className="max-w-[300px] line-clamp-1 mb-1">
+                                                            {posCart.product?.name}
+                                                        </p>
+                                                        {posCart.variation ? (
+                                                            <p>
+                                                                <span className="text-muted">
+                                                                    {translate(
+                                                                        'Variation',
+                                                                    )}
+                                                                    :
+                                                                </span>{' '}
+                                                                <span className="text-theme-secondary">
+                                                                    {
+                                                                        posCart
+                                                                            .variation
+                                                                            .name
+                                                                    }
+                                                                </span>
+                                                            </p>
+                                                        ) : null}
+                                                    </div>
+
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <Counter
+                                                        value={posCart.qty}
+                                                        orientation="horizontal"
+                                                        onChange={(newValue) => {
+                                                            handleQuantityChange(
+                                                                posCart.id,
+                                                                newValue >
+                                                                    posCart.qty
+                                                                    ? 'increase'
+                                                                    : 'decrease',
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    {currencyFormatter(
+                                                        posCart.variation
+                                                            ?.discountedBasePrice,
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {currencyFormatter(
+                                                        posCart.variation
+                                                            ?.discountedBasePrice *
+                                                            posCart.qty,
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        className="text-theme-alert h-8 w-8 flex items-center justify-center"
+                                                        onClick={() =>
+                                                            handleQuantityChange(
+                                                                posCart.id,
+                                                                'delete',
+                                                            )
+                                                        }
+                                                    >
+                                                        <FaTrashAlt />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <OrderSubmitForm
+                            posCartGroup={posCartGroup}
+                            customer={customer}
+                            shippingAddress={address}
+                            handleHoldOrder={handleHoldOrder}
+                            handleResetOrder={handleResetOrder}
+                            onSuccess={handleSubmitOrderSuccess}
+                        />
+                    </div>
+                </DrawerWithHandle>
+                </div>
+
             </div>
         </>
     );

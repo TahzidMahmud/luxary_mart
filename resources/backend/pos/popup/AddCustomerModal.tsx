@@ -17,6 +17,7 @@ interface Props {
     onSuccess: (customer: ICustomer) => void;
     isActive: boolean;
     onClose: () => void;
+    onOpen:()=>void;
 }
 
 interface FormValues {
@@ -51,7 +52,7 @@ const validationSchema = object().shape({
     address: string(),
 });
 
-const AddCustomerModal = ({ onSuccess,isActive,onClose }: Props) => {
+const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
 
     const [states, setStates] = useState<IState[]>([]);
     const [cities, setCities] = useState<ICity[]>([]);
@@ -118,7 +119,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onClose }: Props) => {
             <Button
                 variant="primary"
                 className="h-[37px] whitespace-nowrap"
-                onClick={() => handleClose()}
+                onClick={() => onOpen()}
             >
                 {translate('Add Customer')}
             </Button>
