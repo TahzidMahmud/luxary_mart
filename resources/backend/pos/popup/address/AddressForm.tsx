@@ -136,7 +136,7 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
             </div> */}
             <div className="flex gap-5">
                 <label className="min-w-[100px] py-2">
-                    {translate('Division')}
+                    District
                     <span className="text-theme-alert ml-1">*</span>
                 </label>
                 <SelectInput
@@ -168,7 +168,7 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
                     error={formik.errors.cityId}
                 />
             </div>
-            <div className="flex gap-5">
+            {/* <div className="flex gap-5">
                 <label className="min-w-[100px] py-2">
                     {translate('Area')}
                     <span className="text-theme-alert ml-1">*</span>
@@ -184,7 +184,7 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
                     touched={formik.touched.areaId}
                     error={formik.errors.areaId}
                 />
-            </div>
+            </div> */}
             <div className="flex gap-5">
                 <label className="min-w-[100px] py-2">
                     {translate('Address')}
@@ -200,7 +200,7 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
                     error={formik.errors.address}
                 />
             </div>
-            <div className="flex gap-5">
+            {/* <div className="flex gap-5">
                 <label className="min-w-[100px] py-2">
                     {translate('Type')}
                     <span className="text-theme-alert ml-1">*</span>
@@ -220,8 +220,8 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
                     touched={formik.touched.type}
                     error={formik.errors.type}
                 />
-            </div>
-            <div className="flex gap-5">
+            </div> */}
+            {/* <div className="flex gap-5">
                 <label className="min-w-[100px] py-2">
                     {translate('Direction')}
                 </label>
@@ -234,7 +234,7 @@ const AddressForm = ({ customerId, onSuccess }: Props) => {
                     touched={formik.touched.direction}
                     error={formik.errors.direction}
                 />
-            </div>
+            </div> */}
 
             <div>
                 <Button as="button" type="submit" variant="secondary">

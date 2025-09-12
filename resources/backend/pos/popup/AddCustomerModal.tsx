@@ -71,6 +71,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
                 // setIsActive(false);
                 onSuccess(data.newCustomer);
                 helpers.resetForm();
+                handleClose();
             } catch (error) {
                 toast.error(
                     error.response?.data?.message || 'Failed to add customer',
@@ -170,7 +171,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
                         </div>
                         <div className="flex gap-5">
                             <label className="min-w-[100px] py-2">
-                                {translate('Division')}
+                                District
                             </label>
                             <SelectInput
                                 {...formik.getFieldProps('stateId')}
@@ -208,7 +209,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
                                 error={formik.errors.cityId}
                             />
                         </div>
-                        <div className="flex gap-5">
+                        {/* <div className="flex gap-5">
                             <label className="min-w-[100px] py-2">
                                 {translate('Area')}
                             </label>
@@ -227,8 +228,8 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
                                 touched={formik.touched.areaId}
                                 error={formik.errors.areaId}
                             />
-                        </div>
-                        <div className="flex gap-5">
+                        </div> */}
+                        {/* <div className="flex gap-5">
                             <label className="min-w-[100px] py-2">
                                 {translate('Postal Code')}
                             </label>
@@ -241,7 +242,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
                                 touched={formik.touched.postalCode}
                                 error={formik.errors.postalCode}
                             />
-                        </div>
+                        </div> */}
                         <div className="flex gap-5">
                             <label className="min-w-[100px] py-2">
                                 {translate('Address')}
