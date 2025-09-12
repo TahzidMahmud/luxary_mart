@@ -159,15 +159,14 @@ const App = () => {
                 </Route>
 
                 <Route element={<ProtectedLayout />}>
-                    <Route path="/checkout" element={<Checkout />} />
                     <Route path="/payment" element={<PaymentGateway />} />
-
-                    <Route
-                        path="/orders/success/:orderCode"
-                        element={<OrderSuccess />}
-                    />
                     <Route path="/orders/failed" element={<OrderFailed />} />
                 </Route>
+                <Route path="/checkout" element={<Checkout />} />
+                 <Route
+                    path="/orders/success/:orderCode"
+                    element={<OrderSuccess />}
+                />
 
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/orders/track" element={<OrderTracking />} />

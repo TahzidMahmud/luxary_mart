@@ -98,8 +98,9 @@ export interface IAddress {
     state: IState;
     cityId: number;
     city: ICity;
-    areaId: number;
-    area: IArea;
+    areaId?: number;
+    phone: string;
+    area?: IArea;
     address: string;
     type: 'home' | 'office' | 'other';
     direction?: string;
@@ -186,7 +187,14 @@ export interface IOrderPayload extends ICheckoutCustomerDetails {
     cartIds: number[];
     paymentMethod: string;
 }
-
+export interface IManualOrderPayload extends ICheckoutCustomerDetails {
+    shippingAddress: IAddress;
+    billingAddress?: IAddress;
+    shopIds: number[];
+    couponCodes: string[];
+    cartIds: number[];
+    paymentMethod: string;
+}
 export interface ICheckoutCustomerDetails {
     name: string;
     email: string;
@@ -204,4 +212,7 @@ export interface ICheckoutData {
     selectedShops: Record<string, boolean>;
     shippingCharge: number;
     coupons: ICouponShort[];
+    isVerified:boolean;
+    otpExpiryTimestamp?: number | null; // Unix timestamp in milliseconds
+
 }

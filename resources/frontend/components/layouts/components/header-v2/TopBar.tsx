@@ -19,7 +19,7 @@ const TopBar = () => {
         <div className="max-lg:hidden border-b-[.5px] border-black/[.12] bg-theme-primary text-white h-9 flex items-center justify-center">
             <div className="container flex justify-between items-center gap-10">
                 <div>
-                    <LocationToggler />
+                    {/* <LocationToggler /> */}
                 </div>
 
                 <div className="flex items-center justify-center gap-5">

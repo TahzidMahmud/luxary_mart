@@ -52,17 +52,17 @@ const ProductCard = ({ product: p }: Props) => {
 
     const handleAddToCart = async () => {
         // check user location is set or not
-        if (!userLocation?.area?.zone_id) {
-            dispatch(
-                togglePopup({
-                    popup: 'user-location',
-                    popupProps: {
-                        redirectOnSuccess: `/products/${product.slug}`,
-                    },
-                }),
-            );
-            return;
-        }
+        // if (!userLocation?.area?.zone_id) {
+        //     dispatch(
+        //         togglePopup({
+        //             popup: 'user-location',
+        //             popupProps: {
+        //                 redirectOnSuccess: `/products/${product.slug}`,
+        //             },
+        //         }),
+        //     );
+        //     return;
+        // }
 
         // if product has variations, show product preview popup
         // else fetch the product and add it to cart with 1st (and only) variation id

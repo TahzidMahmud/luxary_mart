@@ -34,7 +34,7 @@ class OrderResource extends JsonResource
             'deliveryStatusToShow'  => ucfirst(str_replace('_', ' ', $this->delivery_status)),
             'paymentStatus'         => $this->payment_status,
             'advance_payment'=>$this->advance_payment,
-            
+
         ];
 
         $additionalData = [];

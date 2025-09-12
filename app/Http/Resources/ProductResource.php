@@ -7,8 +7,10 @@ use App\Traits\CategoryTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Route;
 
+
 class ProductResource extends JsonResource
 {
+
     public function toArray($request)
     {
         $user       = apiUser();
@@ -52,7 +54,7 @@ class ProductResource extends JsonResource
             $relatedProducts = collect();
             if ($categories && count($categories) > 0) {
                 $categoryIds = $categories->pluck('id');
-                $relatedProducts = Product::isPublished()->whereHas('productCategories', function ($q) use ($categoryIds) {
+                $relatedProducts = Product::whereHas('productCategories', function ($q) use ($categoryIds) {
                     $q->whereIn('category_id', $categoryIds)->whereNot('product_id', $this->id);
                 })->take(3)->get();
             }
@@ -106,12 +108,12 @@ class ProductResource extends JsonResource
         if ($product->has_variation == 1) {
             $productVariations = $product->variations;
             foreach ($productVariations as $productVariation) {
-                $stockQty += (int) $productVariation?->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds'))->sum('stock_qty');
+                $stockQty += (int) $productVariation?->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds') ?? [1])->sum('stock_qty');
             }
         } else {
             // if product does not have any variations
             $productVariation   = $product->variations()->first();
-            $stockQty           = $productVariation?->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds'))->sum('stock_qty');
+            $stockQty           = $productVariation?->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds') ?? [1])->sum('stock_qty');
         }
 
         return (int) $stockQty;

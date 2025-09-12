@@ -2,6 +2,7 @@ import { IGetsQueryParams, IResponse } from '../../../types';
 import {
     IOrder,
     IOrderPayload,
+    IManualOrderPayload,
     IOrderSuccess,
     OrderShort,
 } from '../../../types/checkout';
@@ -61,6 +62,22 @@ const orderApi = apiSlice
                 invalidatesTags: ['Order'],
                 transformResponse: (res: any) => res.result,
             }),
+            createManualOrder: builder.mutation<
+                {
+                    goToPayment: boolean;
+                    orderCode: number;
+                    paymentMethod: string;
+                },
+                IManualOrderPayload
+            >({
+                query: (body) => ({
+                    url: `/checkout/manual-order/store`,
+                    method: 'POST',
+                    body: objectToFormData(body),
+                }),
+                invalidatesTags: ['Order'],
+                transformResponse: (res: any) => res.result,
+            }),
 
             getOrderSuccessData: builder.query<IOrderSuccess, number | string>({
                 query: (orderId) => `/orders/success/${orderId}`,
@@ -72,6 +89,7 @@ const orderApi = apiSlice
 export const {
     useGetOrdersQuery,
     useCreateOrderMutation,
+    useCreateManualOrderMutation,
     useGetOrderByCodeQuery,
     useGetOrderSuccessDataQuery,
 } = orderApi;

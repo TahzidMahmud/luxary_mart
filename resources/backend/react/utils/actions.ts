@@ -2,7 +2,7 @@ import { IConversation, IGoal, IMessage } from '../types';
 import { objectToFormData } from './ObjectFormData';
 import { axiosInstance } from './axios';
 
-export const getConversations = async (params) => {
+export const getConversations = async (params: any) => {
     const res = await axiosInstance.get('/chats', { params });
     return res.data.result as IConversation[];
 };
@@ -37,4 +37,20 @@ export const getGoal = async () => {
     if (!res.data.result.goalAmount) return undefined;
 
     return res.data.result as IGoal;
+};
+export const sendOTP = async (data: { name: string, phone:string }) => {
+    const res = await axiosInstance(`/api/v1/send-otp`, {
+        method: 'POST',
+        data: objectToFormData(data),
+    });
+
+    return res.data.result;
+};
+export const reSendOTP = async (data: { name: string, phone:string }) => {
+    const res = await axiosInstance(`/api/v1/resend-otp`, {
+        method: 'POST',
+        data: objectToFormData(data),
+    });
+
+    return res.data;
 };

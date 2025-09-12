@@ -3,7 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Services\FacebookConversionService;
+use App\Facades\Gtag;
 class ProductVariationResource extends JsonResource
 {
     /**
@@ -12,15 +13,19 @@ class ProductVariationResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    protected $facebook;
+
     public function toArray($request)
     {
+
+
         return [
             'id'                            => $this->id,
             'productId'                     => (int) $this->product_id,
             'name'                          => generateVariationName($this->code),
             'code'                          => $this->code,
             'sku'                           => $this->sku,
-            'stocks'                        => ProductVariationStockResource::collection($this->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds'))->get()),
+            'stocks'                        => ProductVariationStockResource::collection($this->productVariationStocks()->whereIn('warehouse_id', session('WarehouseIds') ?? [1])->get()),
             'image'                         => uploadedAsset($this->image),
             'basePrice'                     => (float) variationPrice($this->product, $this, false),
             'discountedBasePrice'           => (float) variationDiscountedPrice($this->product, $this, false),

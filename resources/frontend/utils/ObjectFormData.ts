@@ -1,19 +1,31 @@
 export const objectToFormData = (object: { [key: string]: any }): FormData => {
     const formData = new FormData();
+
     Object.keys(object).forEach((key) => {
-        if (object[key] === undefined || object[key] === null) return;
+        const value = object[key];
 
-        if (Array.isArray(object[key])) {
-            object[key].forEach((item: any) => {
-                formData.append(`${key}[]`, item);
+        if (value === undefined || value === null) return;
+
+        if (Array.isArray(value)) {
+            value.forEach((item) => {
+                // Stringify object items in arrays, leave primitives as is
+                if (typeof item === 'object' && !(item instanceof File)) {
+                    formData.append(`${key}[]`, JSON.stringify(item));
+                } else {
+                    formData.append(`${key}[]`, item);
+                }
             });
-            return;
+        } else if (typeof value === 'object' && !(value instanceof File)) {
+            // Convert plain objects (not File) to JSON string
+            formData.append(key, JSON.stringify(value));
+        } else {
+            formData.append(key, value);
         }
-
-        formData.append(key, object[key]);
     });
+
     return formData;
 };
+
 
 export const formDataToObject = (
     formData: FormData,

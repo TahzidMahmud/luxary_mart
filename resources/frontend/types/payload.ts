@@ -9,7 +9,7 @@ export interface IAuthPayload {
     remember?: boolean;
 }
 
-export interface IAddressPayload {
+export interface AddressPayload {
     countryId?: number;
     stateId?: number;
     cityId?: number;

@@ -163,7 +163,7 @@
     <div class="billing-info">
         <div style="margin-bottom: 16px;">
             <div style="float: left; width: 50%;">
-                <img src="https://luxuryonlinemart.com/public/uploads/all/pP7JMy3pAwdNWgR9hegbgfdLJXa2p7ywh0JZSzpi.png"
+                <img src="{{ uploadedAsset(getSetting('websiteHeaderLogo')) }}"
                     height="70" alt="Logo">
             </div>
             <div style="float: left; width: 50%;">
@@ -279,10 +279,10 @@
                     <td style="padding-bottom: 10px;">Sub Total:</td>
                     <td style="text-align: right;">{{ formatPrice($order->amount) }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td style="padding-bottom: 10px;">Tax:</td>
                     <td style="text-align: right;">{{ formatPrice($order->tax_amount) }}</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <td style="padding-bottom: 10px;">Total Discount:</td>
                     <td style="text-align: right;">{{ formatPrice($order->discount_amount) }}</td>

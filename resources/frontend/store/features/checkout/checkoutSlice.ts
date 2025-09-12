@@ -19,6 +19,7 @@ const initialState: ICheckoutData = {
     selectedShops: {},
     shippingCharge: 0,
     coupons: [],
+    isVerified:false,
 };
 
 const checkoutSessionKey = 'arm-checkoutData';

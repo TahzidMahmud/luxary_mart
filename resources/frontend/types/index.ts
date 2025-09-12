@@ -11,6 +11,7 @@ declare global {
                 apiUrl: string;
                 demoMode: string;
                 logo: string;
+                env:string;
             };
             countries: ICountry[];
 
@@ -70,7 +71,8 @@ export type Variant =
     | 'light'
     | 'dark'
     | 'link'
-    | 'no-color';
+    | 'no-color'
+    | 'outline';
 
 export type Size = 'sm' | 'md' | 'lg';
 

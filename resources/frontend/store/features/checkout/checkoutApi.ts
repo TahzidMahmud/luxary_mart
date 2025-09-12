@@ -5,7 +5,7 @@ import {
     ICountry,
     IState,
 } from '../../../types/checkout';
-import { IAddressPayload } from '../../../types/payload';
+import { AddressPayload } from '../../../types/payload';
 import { objectToFormData } from '../../../utils/ObjectFormData';
 import { apiSlice } from '../api/apiSlice';
 
@@ -32,7 +32,7 @@ const checkoutApi = apiSlice
                 transformResponse: (res: any) => res.result,
             }),
 
-            addAddress: builder.mutation<IAddress, Partial<IAddressPayload>>({
+            addAddress: builder.mutation<IAddress, Partial<AddressPayload>>({
                 query: (address) => ({
                     url: '/user/address',
                     method: 'POST',
@@ -44,7 +44,7 @@ const checkoutApi = apiSlice
 
             updateAddress: builder.mutation<
                 IAddress,
-                Partial<IAddressPayload> & { id: number }
+                Partial<AddressPayload> & { id: number }
             >({
                 query: (address) => ({
                     url: `/user/address/update`,
@@ -95,8 +95,11 @@ const checkoutApi = apiSlice
             getShippingCharge: builder.query<
                 number,
                 {
-                    addressId: number;
+                    cityId: number;
+                    userId: number;
+                    guestUserId: number;
                     shopIds: number[];
+                    cartIds: number[];
                     coupons: string[];
                 }
             >({
@@ -104,7 +107,10 @@ const checkoutApi = apiSlice
                     return {
                         url: `checkout/get-shipping-charge`,
                         method: 'POST',
-                        body: objectToFormData(body),
+                        body,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                     };
                 },
                 providesTags: ['ShippingCharges'],

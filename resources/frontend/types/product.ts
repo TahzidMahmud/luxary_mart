@@ -34,6 +34,17 @@ export interface VariationCombination {
         matchVariationCode: `${string | number}:${string | number}`;
     }[];
 }
+export interface ICartProduct {
+    id: number;
+    userId: number;
+    guestUserId: number;
+    productVariationId: number;
+    warehouseId: number;
+    qty: number;
+    product: IProductShort;
+    shop: IShop;
+    variation: IProductVariation;
+}
 
 export interface IPromoCode {
     id: number;

@@ -100,13 +100,13 @@ const CartSidebar = () => {
                     </Button>
                 ) : (
                     <Button
-                        as="button"
-                        onClick={() => dispatch(togglePopup('signin'))}
-                        className="grow"
+                        as="link"
+                        to="/checkout"
                         size="lg"
+                        className="grow"
                         variant="warning"
                     >
-                        {translate('checkout')}
+                        {translate('Checkout')}
                     </Button>
                 )}
             </div>

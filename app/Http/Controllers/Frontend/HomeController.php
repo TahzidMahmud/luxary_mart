@@ -116,7 +116,7 @@ class HomeController extends Controller
             array_push($paymentMethods, $payment);
         }
 
-        // social logins 
+        // social logins
         $socialLogins = [];
         if (config('app.GOOGLE_ACTIVATION') == 1) {
             $social         = new SystemSetting;
@@ -162,6 +162,7 @@ class HomeController extends Controller
                 'apiUrl'  => config('app.url') . config('app.api_pathname'),
                 // 'apiUrl' => 'https://ba11-103-176-19-44.ngrok-free.app/armtech/multivendor-ecommerce/api/v1',
                 'demoMode' => config('app.demo_mode'),
+                'env'=>config('app.env')
             ],
             'countries'         => Country::where('is_active', 1)->get(),
             'languages'         => Language::isActive()->get(['name', 'code', 'flag', 'is_rtl']),

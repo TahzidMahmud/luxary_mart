@@ -20,6 +20,7 @@ type CommonProps = {
     variant?: Variant;
     isLoading?: boolean;
     size?: Size;
+    arrow?: false | 'left' | 'right';
 };
 
 type Props = CommonProps & (ButtonProps | LinkProps);
@@ -28,6 +29,15 @@ const Button = (props: Props) => {
     const { isLoading } = props;
 
     const variantClasses = {
+         outline: cn(
+            'text-primary border border-secondary bg-gradient-to-r from-white from-[50%] to-secondary to-[50%] bg-[200%_auto] hover:bg-right hover:bg-right hover:text-white',
+            {
+                'pl-5 pr-3 md:pl-6 md:pr-5':
+                    props.arrow === 'right' || props.arrow === undefined,
+                'pl-3 pr-5 md:pl-5 md:pr-6': props.arrow === 'left',
+                'px-5': props.arrow === false,
+            },
+        ),
         primary: `bg-theme-primary text-white hover:bg-theme-primary/90`,
         secondary: `bg-theme-secondary-light text-white hover:bg-theme-secondary`,
         success: `bg-theme-green text-white hover:bg-theme-green/70`,

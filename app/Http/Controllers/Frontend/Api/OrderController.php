@@ -55,7 +55,7 @@ class OrderController extends Controller
     # order success
     public function success($code)
     {
-        $orderGroup = OrderGroup::where('user_id', apiUserId())->where('code', $code)->first();
+        $orderGroup = OrderGroup::where('code', $code)->first();
         if (!is_null($orderGroup)) {
             $summary = [
                 'customerName'          => $orderGroup->user?->name ?? '',

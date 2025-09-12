@@ -197,17 +197,12 @@ Route::group(['prefix' => config('app.api_version')], function () {
         Route::post('/user/address/update-default', [UserController::class, 'setDefaultAddress']);
         Route::post('/user/address/delete', [UserController::class, 'destroy']);
 
-        // checkout
-        Route::group(['prefix' => 'checkout'], function () {
-            Route::post('get-shipping-charge', [CheckoutController::class, 'getShippingCharge']);
-            Route::post('order/store', [CheckoutController::class, 'store'])->middleware('zone');
-            Route::post('zone/update', [CheckoutController::class, 'updateZone'])->middleware('zone');
-        });
+
 
         // orders
         Route::group(['prefix' => 'orders', 'middleware' => ['zone']], function () {
             Route::get('/', [OrderController::class, 'index']);
-            Route::get('/success/{code}', [OrderController::class, 'success'])->name('orders.success');
+
         });
 
         // chat
@@ -222,8 +217,22 @@ Route::group(['prefix' => config('app.api_version')], function () {
         Route::post('/user/update-info', [AuthController::class, 'updateInfo']);
         Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
     });
+     // checkout
+    Route::group(['prefix' => 'checkout'], function () {
+        // Route::post('get-shipping-charge', [CheckoutController::class, 'getShippingCharge']);
+        #guest checkout
+        Route::post('manual-order/store', [CheckoutController::class, 'store']);
+        // Route::post('order/store', [CheckoutController::class, 'store'])->middleware('zone');
+        Route::post('zone/update', [CheckoutController::class, 'updateZone'])->middleware('zone');
+        Route::post('get-shipping-charge', [CheckoutController::class, 'getShippingCharge']);
+
+    });
+    Route::get('/orders/success/{code}', [OrderController::class, 'success'])->name('orders.success');
+
+
 
     Route::group(['prefix' => 'orders', 'middleware' => ['zone']], function () {
         Route::get('/{code}', [OrderController::class, 'show'])->name('orders.show');
     });
+
 });

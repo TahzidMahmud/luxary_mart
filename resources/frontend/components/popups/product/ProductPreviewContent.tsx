@@ -181,10 +181,10 @@ const ProductPreviewContent = ({
 
     const handleAddToCart = async () => {
         // check user location is set or not
-        if (!userLocation?.area?.zone_id) {
-            dispatch(togglePopup('user-location'));
-            return;
-        }
+        // if (!userLocation?.area?.zone_id) {
+        //     dispatch(togglePopup('user-location'));
+        //     return;
+        // }
 
         try {
             let productVariationId = selectedVariation?.id;
@@ -235,10 +235,10 @@ const ProductPreviewContent = ({
     // add to cart and redirect to checkout page
     const handleBuyNow = async () => {
         // check user location is set or not
-        if (!userLocation?.area?.zone_id) {
-            dispatch(togglePopup('user-location'));
-            return;
-        }
+        // if (!userLocation?.area?.zone_id) {
+        //     dispatch(togglePopup('user-location'));
+        //     return;
+        // }
 
         // check if the selected variation is in stock or not
         if (!isProductAvailable(selectedVariation!, carts)) {
