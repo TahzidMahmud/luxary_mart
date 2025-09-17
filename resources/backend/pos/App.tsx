@@ -370,12 +370,13 @@ const App = () => {
 
                             <div className="flex gap-3">
                                 <AddCustomerModal
-                                    onSuccess={(customer) => {
+                                    onSuccess={(customer:ICustomer,address:IAddress) => {
                                         setCustomer(customer);
                                         setCustomerFilters([
                                             customer,
                                             ...(customerFilters || []),
                                         ]);
+                                        // setAddress(address);
                                     }}
                                     isActive={openAddCustomerModal}
                                     onOpen={()=>setOpenAddCustomerModal(true)}

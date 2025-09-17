@@ -20,7 +20,8 @@ export type Modals =
     | 'forget-password'
     | 'confirmation'
     | 'otp-verification'
-    | 'confirmation-status-update';
+    | 'confirmation-status-update'
+    | 'order-update';
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
 
 interface PopupState {

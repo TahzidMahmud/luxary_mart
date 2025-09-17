@@ -44,7 +44,6 @@ Route::group(['prefix' => config('app.api_version')], function () {
 
         Route::post('/admin-configuration', [InstallController::class, 'storeAdmin'])->name('installation.storeAdmin');
     });
-
     # Auth routes
     Route::group(['prefix' => 'auth'], function () {
 

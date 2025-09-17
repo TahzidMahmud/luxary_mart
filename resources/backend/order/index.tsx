@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import Popups from '../../frontend/components/popups/index'
 import ConfirmStatusUpdatePopup from '../../frontend/components/popups/order/ConfirmStatusUpdatePopup';
+import OrderEditPopup from '../../frontend/components/popups/order/OrderEditPopup';
 // collapse sidebar
 const sidebar = document.querySelector('.sidebar') as HTMLDivElement | null;
 if (sidebar) {
@@ -27,7 +28,8 @@ root.render(
                 <Toaster />
                 <Orders />
                 <PopupIndex />
-                  <ConfirmStatusUpdatePopup/>
+                <ConfirmStatusUpdatePopup/>
+                <OrderEditPopup />
             </AppContextProvider>
         </BrowserRouter>
     </QueryClientProvider>

@@ -9,12 +9,12 @@ import Input from '../../react/components/inputs/Input';
 import SelectInput from '../../react/components/inputs/SelectInput';
 import { objectToFormData } from '../../react/utils/ObjectFormData';
 import { translate } from '../../react/utils/translate';
-import { IArea, ICity, ICountry, ICustomer, IState } from '../types';
+import { IAddress, IArea, ICity, ICountry, ICustomer, IState } from '../types';
 import { addCustomer, getAreas, getCities, getStates } from '../utils/actions';
 import ModalWrapper from './ModalWrapper';
 
 interface Props {
-    onSuccess: (customer: ICustomer) => void;
+    onSuccess: (customer: ICustomer,address:IAddress) => void;
     isActive: boolean;
     onClose: () => void;
     onOpen:()=>void;
@@ -69,7 +69,7 @@ const AddCustomerModal = ({ onSuccess,isActive,onOpen,onClose }: Props) => {
             try {
                 const data = await addCustomer(objectToFormData(values));
                 // setIsActive(false);
-                onSuccess(data.newCustomer);
+                onSuccess(data.newCustomer,data.newAddress);
                 helpers.resetForm();
                 handleClose();
             } catch (error) {

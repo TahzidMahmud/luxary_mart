@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Backend\Api\Order\OrderController;
 
+
 Route::group(['prefix' => 'admin/api', 'middleware' => ['auth', 'admin', 'unbanned', 'xss']], function () {
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +34,11 @@ Route::group(['prefix' => 'admin/api', 'middleware' => ['auth', 'admin', 'unbann
         Route::get('/top-rated-sellers', [DashboardController::class, 'topRatedSellers'])->name('admin.dashboard.topRatedSellers');
         Route::get('/top-sellers', [DashboardController::class, 'topSellers'])->name('admin.dashboard.topSellers');
     });
+
     Route::get('/orders',[OrderController::class, 'index'])->name('admin.allorders');
+    Route::get('/orders/{id}',[OrderController::class, 'show'])->name('admin.order');
+    Route::post('/order/update',[OrderController::class, 'update_order'])->name('admin.order-update');
+
  // quick order status update
     Route::post('/orders/update-order-status',[OrderController::class, 'updateOrderStatus'])->name('admin.updateOrderStatus');
 
@@ -81,7 +86,7 @@ Route::group(['prefix' => 'admin/api', 'middleware' => ['auth', 'admin', 'unbann
     |--------------------------------------------------------------------------
     | pos Routes
     |--------------------------------------------------------------------------
-    */
+    */ 
     Route::group(['prefix' => 'pos'], function () {
         Route::post('/add-to-cart', [PosController::class, 'addToPosCart']);
         Route::post('/cart/update', [PosController::class, 'updatePosCart']);

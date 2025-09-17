@@ -134,7 +134,7 @@ class PosController extends Controller
         $customer->phone = $request->phone;
         $customer->save();
 
-        $this->__newAddresses($request, $customer->id);
+        $newAddress=$this->__newAddresses($request, $customer->id);
 
         $customers  = User::customers()->get(['id', 'name']);
         return response()->json([
@@ -143,7 +143,8 @@ class PosController extends Controller
             'message'   => '',
             'result'    => [
                 'customers'     => $customers,
-                'newCustomer'   => $customer
+                'newCustomer'   => $customer,
+                'newAddress' => $newAddress
             ]
         ], 200);
     }
@@ -176,7 +177,7 @@ class PosController extends Controller
     # new address
     private function __newAddresses(Request $request, $customerId)
     {
-        if ($request->countryId != null && $request->stateId != null && $request->cityId != null && $request->areaId != null && $request->address != null) {
+        if ($request->stateId != null && $request->cityId != null && $request->address != null) {
             $address = new UserAddress;
             $address->user_id       = $customerId;
             $address->country_id    = $request->countryId;
@@ -184,12 +185,14 @@ class PosController extends Controller
             $address->city_id       = $request->cityId;
             $address->area_id       = $request->areaId;
             $address->postal_code   = $request->postalCode;
-            $address->address       = $request->address;
+            $address->address       = $request->address ?? '';
             $address->type          = $request->type;
-            $address->direction     = $request->direction;
-            $address->is_default    = 0;
+            $address->direction     = $request->direction ?? '';
+            $address->is_default    = 1;
             $address->save();
+            return $address;
         }
+
     }
 
     # add to pos cart
@@ -385,14 +388,16 @@ class PosController extends Controller
             $orderGroup->email                  = $customer?->email;
             $orderGroup->phone                  = $customer?->phone;
             $orderGroup->note                   = $request->note;
-            $orderGroup->shipping_address_id    = $request->shippingAddressId;
+            $orderGroup->shipping_address_id    = $request->shippingAddressId ;
             $orderGroup->save();
 
             if ($orderGroup->shippingAddress) {
                 $address                            = $orderGroup->shippingAddress;
                 $orderGroup->shipping_address_type  = $address->type;
                 $orderGroup->direction              = $address->direction;
-                $orderGroup->shipping_address       = $address->address . ", " . $address->area->name . ", " . $address->city->name . ", " . $address->state->name . ", " . $address->postal_code . ", " . $address->country->name;
+                $orderGroup->shipping_address       = $address->address . ", " . $address->area?->name . ", " . $address->city->name . ", " . $address->state->name . ", " . $address->postal_code . ", " . $address->country->name;
+
+
             }
 
 
@@ -556,7 +561,8 @@ class PosController extends Controller
                     'orderId'   => $order->id
                 ]
             ], 200);
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
 
             return response()->json([

@@ -53,6 +53,7 @@ export const addCustomer = async (body: FormData) => {
     return (await response.json()).result as {
         customers: ICustomer[];
         newCustomer: ICustomer;
+        newAddress:IAddress;
     };
 };
 

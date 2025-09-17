@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use App\Models\Order;
 use App\Models\Country;
+use App\Models\OrderItem;
 use App\Http\Resources\OrderResource;
 
 
@@ -77,5 +78,49 @@ class OrderController extends Controller
                 'status'    => 200,
                 'message'   => 'Something wnet wrong',
             ];;
+    }
+
+    public function show(Request $request,$id){
+        $order = Order::with(['orderItems.productVariation','orderItems.productVariation.product' => function ($query) {
+            $query->select('id', 'name');
+        }])->find((int) $id);
+
+        $data = [
+            'status'    => 200,
+            'message'   => '',
+            'result'    => [
+                'order' => $order,
+            ],
+        ];
+        return $data;
+    }
+    public function update_order(Request $request){
+        $order_items= $request->orderItems;
+        // dd($order_items);
+        try{
+            foreach ($order_items as $key => $value) {
+                if($value['removed']){
+                    OrderItem::destroy($value['id']);
+                }else{
+                    $order_item = OrderItem::findOrFail($value['id']);
+                    $order_item->qty= $value['qty'];
+                    $order_item->total_price = ($value['qty'] * $order_item->unit_price);
+                    $order_item->save();
+                }
+            }
+        }catch(\Exception $e){
+            dd($e);
+             $data = [
+                'status'    => 500,
+                'message'   => 'Something Went Wrong',
+            ];
+            return $data;
+        }
+
+        $data = [
+           'status'    => 200,
+            'message'   => 'Upated Successfully..!!',
+        ];
+        return $data;
     }
 }

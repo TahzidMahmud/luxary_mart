@@ -11,7 +11,12 @@ class ProductVariation extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+    protected $appends = ['image_url'];
 
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? uploadedAsset($this->image) : null;
+    }
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id')->withTrashed();

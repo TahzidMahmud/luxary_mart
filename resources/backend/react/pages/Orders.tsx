@@ -8,6 +8,7 @@ import SearchForm from '../components/order/SearchForm';
 import { route } from '../utils/routeHelpers';
 import { togglePopup } from '../../../frontend/store/features/popup/popupSlice';
 import { useDispatch } from 'react-redux';
+import Button from '../../../frontend/components/buttons/Button';
 interface Order {
     id: number;
     code: number;
@@ -31,7 +32,7 @@ interface Pagination {
 }
 
 const OrderPage: React.FC = () => {
-      const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [orders, setOrders] = useState<Order[]>([]);
     const [selectedOrderIds, setSelectedOrderIds] = useState<number[]>([]);
     const fromDateRef = useRef<HTMLInputElement>(null);
@@ -53,6 +54,14 @@ const OrderPage: React.FC = () => {
             togglePopup({
                 popup: 'confirmation-status-update',
                 popupProps: { message:`You want to Update status to ${status}`,title:'Are Your Sure?',order:{status,id,order_id,setOrders}},
+            }),
+        );
+    }
+    const handleOrderEdit = (order_id:number)=>{
+        dispatch(
+            togglePopup({
+                popup: 'order-update',
+                popupProps: { message:``,title:'',order:{order_id}},
             }),
         );
     }
@@ -83,7 +92,7 @@ const OrderPage: React.FC = () => {
         setFilters((prev) => ({ ...prev, [key]: value }));
     };
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const range = fromDateRef.current?.value;
         const from=range?.split('-')[0] ?? '';
@@ -191,9 +200,6 @@ const OrderPage: React.FC = () => {
                     </div>
                 }
             </div>
-
-
-
             <div className="card theme-table w-full">
                 <div className="overflow-x-auto">
                     <table className="divide-y product-list-table">
@@ -334,6 +340,14 @@ const OrderPage: React.FC = () => {
                                         >
                                             <i className="fa-solid fa-eye"></i>
                                         </a>
+                                         <a
+                                            href="#"
+                                            onClick={() => handleOrderEdit(order.id)}
+                                            className="text-secondary text-lg ml-3"
+                                        >
+                                            <i className="fa-solid fa-pen"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             ))}
@@ -348,8 +362,6 @@ const OrderPage: React.FC = () => {
                     </table>
                 </div>
             </div>
-
-
             {/* Pagination */}
             <div className="flex justify-between items-center mt-4">
                 <p className="text-sm text-gray-700">
