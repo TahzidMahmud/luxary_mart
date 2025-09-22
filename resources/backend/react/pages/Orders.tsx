@@ -23,6 +23,7 @@ interface Order {
     address?: string;
     orderPrefix?: string;
     advance_payment:number;
+    orderGroupId:number;
 }
 
 interface Pagination {
@@ -342,7 +343,10 @@ const OrderPage: React.FC = () => {
                                         </a>
                                          <a
                                             href="#"
-                                            onClick={() => handleOrderEdit(order.id)}
+                                            onClick={() =>
+                                                // handleOrderEdit(order.id)
+                                                window.location.replace(`${window.location.origin}/admin/pos?warehouseId=1&orderGroupId=${order.orderGroupId}`)
+                                            }
                                             className="text-secondary text-lg ml-3"
                                         >
                                             <i className="fa-solid fa-pen"></i>

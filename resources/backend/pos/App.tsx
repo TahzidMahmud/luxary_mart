@@ -190,9 +190,23 @@ const App = () => {
             app.requestFullscreen();
         }
     };
-    const [newCustomerName, setNewCustomerName] = useState("");
+  const [newCustomerName, setNewCustomerName] = useState("");
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const handleCart=(newEntry:IPosCartGroup)=>{
+    setPosCartGroup((prev)=>{
+       if (prev) {
+        return {
+                ...prev,
+                posCartGroupId: newEntry.posCartGroupId,
+                posCarts: [...prev.posCarts, ...newEntry.posCarts],
+            };
+        } else {
+            return newEntry;
+        }
 
+    })
+  }
+  console.log('cart',posCartGroup);
     return (
         <>
             <div className="dashboard-nav pt-6 flex items-center justify-between mb-8">
@@ -219,26 +233,6 @@ const App = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-5">
                 <div className="card xl:col-span-3">
                     <div className="card__content">
-                        {/* <div className="max-w-[200px] mb-3">
-                            <SelectInput
-                                name="warehouseId"
-                                placeholder={translate('Warehouse')}
-                                value={filters.warehouseId}
-                                options={[
-                                    {
-                                        id: '',
-                                        name: translate('Select Warehouse'),
-                                    },
-                                    ...filterData.warehouses,
-                                ]}
-                                getOptionLabel={(warehouse) => warehouse.name}
-                                getOptionValue={(warehouse) => warehouse.id}
-                                onChange={(newValue) => {
-                                    handleFilter('warehouseId', newValue.id);
-                                }}
-                                groupClassName="grow"
-                            />
-                        </div> */}
 
                         <div className="flex max-sm:flex-col gap-3 sm:gap-5">
                             <SearchForm
@@ -300,7 +294,7 @@ const App = () => {
                                     <ProductCard
                                         posCartGroup={posCartGroup}
                                         posProduct={posProduct}
-                                        onSuccess={setPosCartGroup}
+                                        onSuccess={handleCart}
                                         key={posProduct.id}
                                     />
                                 ))

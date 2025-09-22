@@ -28,7 +28,7 @@ class ShippingService
 
         foreach ($cartItems as $cart) {
             $shopId = $cart['shop_id'];
-            $shippingClassId = $cart['shipping_class_id'] ?? null;
+            // $shippingClassId = $cart['shipping_class_id'] ?? null;
 
             // Skip if free shipping coupon is applied for the shop
             $isFreeShipping = $coupons->first(fn($c) => $c->shop_id == $shopId && $c->is_free_shipping);
@@ -38,7 +38,7 @@ class ShippingService
             $zoneCharge = ZoneShippingCharge::where([
                 'shop_id' => $shopId,
                 'zone_id' => $zoneId,
-                'shipping_class_id' => $shippingClassId,
+                // 'shipping_class_id' => $shippingClassId,
             ])->value('charge');
 
             if (!is_null($zoneCharge)) {

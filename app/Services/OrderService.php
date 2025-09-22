@@ -17,16 +17,11 @@ class OrderService
     # get shop orders
     public function index($request)
     {
-        $data = [
-            'status'        => 200,
-            'message'       => '',
-            'result'        => [],
-        ];
 
         $searchKey = null;
         $limit     = $request->limit ?? 15;
 
-        $orders = Order::shopOrders()->latest();
+        $orders = Order::shopOrders()->where('deleted_at',null)->latest();
 
         // filter by delivery status
         if ($request->deliveryStatus != null) {
@@ -269,7 +264,7 @@ class OrderService
         return $data;
     }
 
-    # update payment status 
+    # update payment status
     public function updatePaymentStatus($request)
     {
         $order = Order::shopOrders()->whereId((int)$request->order_id)->first();
@@ -348,7 +343,7 @@ class OrderService
                     $productVariation   = $orderItem->productVariation;
                     $product            = $productVariation->product;
 
-                    // moderator commissions 
+                    // moderator commissions
                     $moderatorCommission                        = new ModeratorCommission;
                     $moderatorCommission->user_id               = $createdBy->id;
                     $moderatorCommission->product_id            = $product->id;
@@ -423,7 +418,7 @@ class OrderService
     }
 
 
-    # add qty to stock 
+    # add qty to stock
     public function addQtyToStock($order)
     {
         $orderItems = OrderItem::where('order_id', $order->id)->get();
@@ -448,7 +443,7 @@ class OrderService
         }
     }
 
-    # remove qty from stock  
+    # remove qty from stock
     public function removeQtyFromStock($order)
     {
         $orderItems = OrderItem::where('order_id', $order->id)->get();
@@ -598,7 +593,7 @@ class OrderService
     }
 
 
-    # updateQty 
+    # updateQty
     public function updateQty($request)
     {
         $data = [
@@ -691,7 +686,7 @@ class OrderService
         }
 
 
-        # transaction 
+        # transaction
         $transaction->amount        = $addition ? $transaction->amount + $priceDiff : $transaction->amount - $priceDiff;
         $transaction->total_amount  = $addition ? $transaction->total_amount + $priceDiff : $transaction->total_amount - $priceDiff;
         $transaction->save();

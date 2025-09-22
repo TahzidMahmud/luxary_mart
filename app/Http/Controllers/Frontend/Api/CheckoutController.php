@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\City;
 use App\Models\Coupon;
 use App\Models\CouponUsage;
 use App\Models\Notification;
@@ -19,6 +20,7 @@ use App\Models\WarehouseZone;
 use App\Models\ZoneShippingCharge;
 use App\Notifications\OrderPlacedNotification;
 use App\Services\OrderService;
+use App\Services\ShippingService;
 use App\Traits\CategoryTrait;
 use DB;
 use Illuminate\Http\Request;
@@ -30,45 +32,67 @@ class CheckoutController extends Controller
     # get shipping charges for shops of the address
     public function getShippingCharge(Request $request)
     {
+        // Ensure either userId or guest_user_id is provided
+        if (!$request->has('userId') && !$request->has('guestUserId')) {
+            return response()->json([
+                'success' => false,
+                'status' => 400,
+                'message' => 'Either user id or guest user id must be provided'
+            ], 400);
+        }
 
-        $shopIds = $request->shopIds;
-        $address = UserAddress::findOrFail((int) $request->addressId);
+        try {
+            $zoneId = City::findOrFail($request->cityId)->zone_id;
+            $userId = $request->userId ?? null;
+            $guestUserId = $request->guestUserId ?? null;
+            $couponCodes = $request->coupons ?? [];
+            $shopIds = $request->shopIds ?? null;
+            $cartIds = $request->cartIds ?? null;
 
-        if (!is_null($address)) {
-            $coupons = $request->coupons ? Coupon::whereIn('code', $request->coupons)->get() : collect();
-            $zoneId  = $address->area->zone_id;
+            $carts = Cart::query()
+                ->when($userId, function ($q) use ($userId) {
+                    $q->where('user_id', $userId);
+                })
+                ->when($guestUserId, function ($q) use ($guestUserId) {
+                    $q->where('guest_user_id', $guestUserId);
+                })
+                ->when($request->cartIds, function ($q) use ($request) {
+                    $q->whereIn('id', $request->cartIds);
+                })
+                ->when($request->shopIds, function ($q) use ($request) {
+                    $q->whereHas('productVariation.product', function ($q2) use ($request) {
+                        $q2->whereIn('shop_id', $request->shopIds);
+                    });
+                })
+                ->with(['productVariation.product'])
+                ->get();
 
-            $shippingChargeAmount   = 0;
+            $cartItems = $carts->map(function ($cart) {
+                return [
+                    'shop_id' => $cart->productVariation->product->shop_id,
+                    // 'shipping_class_id' => $cart->productVariation->product->shipping_class_id ?? null,
+                ];
+            })->toArray();
 
-            foreach ($shopIds as $shopId) {
-                $isFreeShipping = false;
+            $totalShippingCharge = ShippingService::calculate(
+                $request->cityId,
+                $cartItems,
+                $couponCodes
+            );
 
-                foreach ($coupons as $coupon) {
-                    if ($coupon->shop_id == $shopId && $coupon->is_free_shipping) {
-                        $isFreeShipping = true;
-                    }
-                }
+            return response()->json([
+                'success' => true,
+                'status' => 200,
+                'result' => $totalShippingCharge
+            ]);
+        } catch (\Exception $e) {
 
-                if (!$isFreeShipping) {
-                    $shippingCharge = ZoneShippingCharge::where('shop_id', $shopId)->where('zone_id', $zoneId)->first();
-
-                    if ($shippingCharge) {
-                        $shippingChargeAmount += $shippingCharge->charge;
-                    } else {
-                        $shop = Shop::find((int) $shopId);
-                        if ($shop) {
-                            $shippingChargeAmount += $shop->default_shipping_charge;
-                        }
-                    }
-                }
-            }
-
-            return [
-                'success'   => true,
-                'status'    => 200,
-                'message'   => '',
-                'result'    => $shippingChargeAmount
-            ];
+            return response()->json([
+                'success' => false,
+                'status' => 500,
+                'message' => 'Failed to calculate shipping charge',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 

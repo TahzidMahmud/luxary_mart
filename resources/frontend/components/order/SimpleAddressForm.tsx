@@ -198,25 +198,25 @@ const SimpleAddressForm = ({ className }: Props) => {
             setSelectedCity(selectedCity);
         }
         // Call the API only if data exists
-        // if (option.id) {
-        //     try {
-        //         const shippingChargeData = await getShippingCharge({
-        //             cityId: option.id,
-        //             userId: user?.id ?? 0,
-        //             guestUserId: guestUserId ?? 0,
-        //             shopIds: selectedShopIds,
-        //             cartIds: selectedCartIds,
-        //             coupons: coupons.map((c) => c.code),
-        //         }).unwrap();
+        if (option.id) {
+            try {
+                const shippingChargeData = await getShippingCharge({
+                    cityId: option.id,
+                    userId: user?.id ?? 0,
+                    guestUserId: guestUserId ?? 0,
+                    shopIds: selectedShopIds,
+                    cartIds: selectedCartIds,
+                    coupons: coupons.map((c) => c.code),
+                }).unwrap();
 
-        //         dispatch(
-        //             setCheckoutData({ shippingCharge: shippingChargeData }),
-        //         );
-        //     } catch (error) {
-        //         console.error('Shipping charge error:', error);
-        //         toast.error('Failed to calculate shipping charge');
-        //     }
-        // }
+                dispatch(
+                    setCheckoutData({ shippingCharge: shippingChargeData }),
+                );
+            } catch (error) {
+                console.error('Shipping charge error:', error);
+                toast.error('Failed to calculate shipping charge');
+            }
+        }
     };
 
     const handleTextareaChange = (
