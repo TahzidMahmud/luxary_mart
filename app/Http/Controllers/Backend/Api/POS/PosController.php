@@ -492,6 +492,7 @@ class PosController extends Controller
             $order->coupon_discount_amount  = $shopCouponDiscount;
             $order->advance_payment         = $request->advancePayment ?? 0;
             $order->total_amount            = $shopSubTotal + $shopTax + $shopShippingCharge - $shopDiscount - $shopCouponDiscount;
+            $order->delivery_status = 'order_placed';
             $order->save();
 
             // grand summary

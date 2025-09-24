@@ -206,7 +206,6 @@ const App = () => {
 
     })
   }
-  console.log('cart',posCartGroup);
     return (
         <>
             <div className="dashboard-nav pt-6 flex items-center justify-between mb-8">

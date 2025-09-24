@@ -52,7 +52,7 @@ const validationSchema = object().shape({
     countryId: number().required('Country is required'),
     stateId: number().required('State is required'),
     cityId: number().required('City is required'),
-    areaId: number().required('Area is required'),
+    // areaId: number().required('Area is required'),
     address: string().required('Address is required'),
     direction: string(),
     type: string()
