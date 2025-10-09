@@ -195,10 +195,16 @@ const App = () => {
   const handleCart=(newEntry:IPosCartGroup)=>{
     setPosCartGroup((prev)=>{
        if (prev) {
+        let prevCarts = prev.posCarts;
+        prevCarts = prevCarts.filter((item)=>{
+            if(item.id != newEntry.posCarts[0].id){
+                return item;
+            }
+        })
         return {
                 ...prev,
                 posCartGroupId: newEntry.posCartGroupId,
-                posCarts: [...prev.posCarts, ...newEntry.posCarts],
+                posCarts: searchParams.get('orderGroupId')? [...prevCarts, ...newEntry.posCarts] : [...newEntry.posCarts],
             };
         } else {
             return newEntry;
@@ -525,7 +531,7 @@ const App = () => {
                      <DrawerWithHandle
                      isOpen={cartDrawerOpen}
                     setIsOpen={setCartDrawerOpen}
-                    drawerWidth={400}      // tweak if you want wider/narrower
+                    drawerWidth={350}      // tweak if you want wider/narrower
                     handleWidth={30}       // how much is visible when closed (also handle size)
                 >
                     <div className="card border-none pb-6">
