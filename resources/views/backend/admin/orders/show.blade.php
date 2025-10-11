@@ -161,7 +161,7 @@
                                 <td>
                                     <div class="inline-flex items-center gap-4">
                                         <div class="max-xs:hidden border border-border rounded-md p-2 aspect-square">
-                                            <img src="{{ uploadedAsset($product->thumbnail_image) }}"
+                                            <img  src="{{ $item->productVariation->image ? uploadedAsset($item->productVariation->image) : asset('images/image-error.png') }}"
                                                 class="w-12 h-12 lg:w-[70px] lg:h-[70px] rounded-md"
                                                 onerror="this.onerror=null;this.src='{{ asset('images/image-error.png') }}';">
                                         </div>
@@ -393,7 +393,7 @@
             });
         });
 
-        // delivery status 
+        // delivery status
         $('#update_delivery_status').on('change', function() {
             var order_id = {{ $order->id }};
             var status = $('#update_delivery_status').val();

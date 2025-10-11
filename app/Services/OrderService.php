@@ -9,6 +9,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderUpdate;
+use App\Http\Resources\OrderItemResource;
 use Config;
 use PDF;
 
@@ -145,6 +146,7 @@ class OrderService
         }
 
         $order = Order::shopOrders()->whereId((int)$id)->first();
+
         return PDF::loadView('backend.admin.orders.invoice', [
             'order' => $order,
             'font_family' => $font_family,

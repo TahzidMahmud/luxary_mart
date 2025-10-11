@@ -241,7 +241,7 @@
 
                         <td>
                             <img height="60"
-                                src="{{ $product->thumbnail_image ? uploadedAsset($product->thumbnail_image) : asset('images/image-error.png') }}"
+                                src="{{ $item->productVariation->image ? uploadedAsset($item->productVariation->image) : asset('images/image-error.png') }}"
                                 alt="Product Image">
                         </td>
                         <td>

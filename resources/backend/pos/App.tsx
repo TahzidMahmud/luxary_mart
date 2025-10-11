@@ -438,7 +438,7 @@ const App = () => {
 
                                                 <Image
                                                     className="h-[60px]"
-                                                    src={posCart.product?.thumbnailImg}
+                                                    src={posCart.variation.image}
                                                     alt="Product Image"
                                                 />
 
