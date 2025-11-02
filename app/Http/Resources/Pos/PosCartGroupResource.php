@@ -29,7 +29,10 @@ class PosCartGroupResource extends JsonResource
             'orderShipmentDate'     => date('Y-m-d', strtotime($this?->order_shipment_date)),
             'note'                  => $this->note,
             'createdAt'             => date('d M, Y g:i:s A', strtotime($this->created_at)),
-            'posCarts'              => PosCartResource::collection($this->posCarts)
+            'posCarts'              => PosCartResource::collection($this->posCarts),
+            'posCartGroupId'        => (int) $this->id,
         ];
     }
 }
+// $2y$10$md.JDF9ur.tl/3P70PMiyOViOkUGvu7ihQvjzmwDoRa.1hts08ugy
+// $2y$10$FElEDq7NnYskDIuC90Fb4.fh7SzwfWHM.paWykSyR.k8aVRltduIC

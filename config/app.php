@@ -120,6 +120,7 @@ return [
     'PATHAO_PASSWORD' =>env('PATHAO_PASSWORD', ''),
     'PATHAO_BASE_URL' =>env('PATHAO_BASE_URL', ''),
     'PATHAO_ACTIVATION' =>env('PATHAO_ACTIVATION', ''),
+    'PATHAO_STORE_ID'=>env('PATHAO_STORE_ID',''),
 
     /*
     |--------------------------------------------------------------------------

@@ -61,10 +61,10 @@ class PosController extends Controller
                     $warehouseId = $order->warehouse_id;
 
                     // re-stock
-                    $orderService = new OrderService;
-                    $orderService->addQtyToStock($order);
-                    $order->delivery_status = "cancelled";
-                    $order->save();
+                    // $orderService = new OrderService;
+                    // $orderService->addQtyToStock($order);
+                    // $order->delivery_status = "cancelled";
+                    // $order->save();
 
                     $posCartGroup->order_receiving_date = $order->order_receiving_date;
                     $posCartGroup->order_shipment_date  = $order->order_shipment_date;

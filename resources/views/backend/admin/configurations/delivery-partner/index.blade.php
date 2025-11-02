@@ -110,6 +110,10 @@
                     <x-backend.inputs.text label="PATHAO_BASE_URL" name="PATHAO_BASE_URL"
                         placeholder="{{ translate('PATHAO_BASE_URL') }}"
                         value="{{ config('app.PATHAO_BASE_URL') }}" />
+                    <input type="hidden" name="types[]" value="PATHAO_STORE_ID">
+                    <x-backend.inputs.text label="PATHAO_STORE_ID" name="PATHAO_STORE_ID"
+                        placeholder="{{ translate('PATHAO_STORE_ID') }}"
+                        value="{{ config('app.PATHAO_STORE_ID') }}" />
                     <input type="hidden" name="types[]" value="PATHAO_ACTIVATION">
                     <x-backend.inputs.checkbox toggler="true" label="Meta Pixel Activation" name="PATHAO_ACTIVATION"
                         placeholder="{{ translate('Pathao Activation') }}" value="1"

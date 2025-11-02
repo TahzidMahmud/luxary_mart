@@ -128,7 +128,6 @@ const App = () => {
             setCustomer(window.config.posCartGroup.customer);
         }, 200);
     }, [Number(searchParams.get('orderGroupId'))]);
-
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         searchParams.set('searchKey', e.target.value);
         setSearchParams(searchParams);
@@ -197,7 +196,7 @@ const App = () => {
        if (prev) {
         let prevCarts = prev.posCarts;
         prevCarts = prevCarts.filter((item)=>{
-            if(item.id != newEntry.posCarts[0].id){
+            if(!(newEntry.posCarts.map((item)=>item.id).includes(item.id))){
                 return item;
             }
         })
@@ -653,7 +652,7 @@ const App = () => {
 
                                                     <Image
                                                         className="h-[60px]"
-                                                        src={posCart.product?.thumbnailImg}
+                                                        src={posCart.variation.image}
                                                         alt="Product Image"
                                                     />
 
